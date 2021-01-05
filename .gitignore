@@ -351,3 +351,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# wwwroot/lib下的bootstrap，font-awsome之类的库
+/MixSchoolManagement.Web/wwwroot/lib
+/MixSchoolManagement.EntityFrameworkCore/Migrations/20191224135807_InitialCreateDataBase.Designer.cs
+/MixSchoolManagement.EntityFrameworkCore/Migrations/20191224135807_InitialCreateDataBase.cs
