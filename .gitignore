@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/MixSchoolManagement.Web/wwwroot/lib
+/MixSchoolManagement.EntityFrameworkCore/Migrations/20191224135807_InitialCreateDataBase.cs
+/MixSchoolManagement.EntityFrameworkCore/Migrations/20191224135807_InitialCreateDataBase.Designer.cs
