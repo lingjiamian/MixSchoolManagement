@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,24 @@ namespace MixSchoolManagement.Web
     {
         public static void Main(string[] args)
         {
+            var logger = NLogBuilder.ConfigureNLog("nblog.config").GetCurrentClassLogger();
+
+            try
+            {
+                logger.Debug("init main");
             CreateHostBuilder(args).Build().Run();
+
+            }
+            catch (Exception e)
+            {
+                logger.Error(e,"Stoped program because exception");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -21,6 +39,10 @@ namespace MixSchoolManagement.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).ConfigureLogging(config =>
+                {
+                    config.ClearProviders();
+                    config.SetMinimumLevel(LogLevel.Trace);
+                }).UseNLog();
     }
 }
