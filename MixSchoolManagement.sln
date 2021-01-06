@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixSchoolManagement.Web", "MixSchoolManagement.Web\MixSchoolManagement.Web.csproj", "{F0A4DCF2-FED9-4E8E-803B-9FE4ABF82180}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixSchoolManagement.Web", "MixSchoolManagement.Web\MixSchoolManagement.Web.csproj", "{F0A4DCF2-FED9-4E8E-803B-9FE4ABF82180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixSchoolManagement.EntityFrameworkCore", "MixSchoolManagement.EntityFrameworkCore\MixSchoolManagement.EntityFrameworkCore.csproj", "{5F6B5C6B-9D58-4F10-93E6-98C27186C28E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixSchoolManagement.EntityFrameworkCore", "MixSchoolManagement.EntityFrameworkCore\MixSchoolManagement.EntityFrameworkCore.csproj", "{5F6B5C6B-9D58-4F10-93E6-98C27186C28E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixSchoolManagement.Core", "MixSchoolManagement.Core\MixSchoolManagement.Core.csproj", "{58486D54-7425-4C85-888B-9E6978E04E7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixSchoolManagement.Core", "MixSchoolManagement.Core\MixSchoolManagement.Core.csproj", "{58486D54-7425-4C85-888B-9E6978E04E7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixSchoolManagement.Application", "MixSchoolManagement.Application\MixSchoolManagement.Application.csproj", "{0EF116DE-8492-45E7-84F5-989F1209DFAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{58486D54-7425-4C85-888B-9E6978E04E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58486D54-7425-4C85-888B-9E6978E04E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58486D54-7425-4C85-888B-9E6978E04E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF116DE-8492-45E7-84F5-989F1209DFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF116DE-8492-45E7-84F5-989F1209DFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF116DE-8492-45E7-84F5-989F1209DFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF116DE-8492-45E7-84F5-989F1209DFAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

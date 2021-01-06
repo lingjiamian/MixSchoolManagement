@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MixSchoolManagement.Core\MixSchoolManagement.Core.csproj" />
+    <ProjectReference Include="..\MixSchoolManagement.EntityFrameworkCore\MixSchoolManagement.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+</Project>
