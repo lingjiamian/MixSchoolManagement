@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MixSchoolManagement.Web</name>
+    </assembly>
+    <members>
+        <member name="M:MixSchoolManagement.Controllers.CourseController.DepartmentsDropDownList(System.Object)">
+            <summary>
+            院系的下拉列表
+            </summary>
+            <param name="selectedDepartment"> </param>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.DepartmentsController.TeachersDropDownList(System.Object)">
+            <summary>
+            教师的下拉列表
+            </summary>
+            <param name="selectedTeacher"> </param>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.ErrorController.#ctor(Microsoft.Extensions.Logging.ILogger{MixSchoolManagement.Controllers.ErrorController})">
+            <summary>
+            注入ASP.NET  Core ILogger服务。
+            将控制器类型指定为泛型参数。
+            这有助于我们进行确定哪个类或控制器产生了异常，然后记录它
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.TeacherController.AssignedCourseDroupDownList(MixSchoolManagement.Models.Teacher)">
+            <summary>
+            处理课程列表是否被选中
+            </summary>
+            <param name="teacher"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.TodoController.GetAll">
+            <summary>
+            获取所有待办事项
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.TodoController.GetById(System.Int64)">
+            <summary>
+            通过Id获取待办事项
+            </summary>
+            <param name="id"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.TodoController.Update(System.Int64,MixSchoolManagement.Models.TodoItem)">
+            <summary>
+            更新待办事项
+            </summary>
+            <param name="id"> </param>
+            <param name="todoItem"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.TodoController.Create(MixSchoolManagement.Models.TodoItem)">
+            <summary>
+            添加待办实现
+            </summary>
+            <param name="todoItem"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:MixSchoolManagement.Controllers.TodoController.Delete(System.Int64)">
+            <summary>
+            删除指定id的待办事项
+            </summary>
+            <param name="id"> </param>
+            <returns> </returns>
+        </member>
+        <member name="T:MixSchoolManagement.Security.CanEditOnlyOtherAdminRolesAndClaimsHandler">
+            <summary>
+            只有编辑其他Admin角色和声明的处理程序
+            </summary>
+        </member>
+        <member name="T:MixSchoolManagement.Security.CustomEmailConfirmationTokenProvider`1">
+            <summary>
+            自定义邮件验证令牌提供程序
+            </summary>
+            <typeparam name="TUser"></typeparam>
+        </member>
+        <member name="T:MixSchoolManagement.Security.CustomEmailConfirmationTokenProviderOptions">
+            <summary>
+            自定义邮箱验证令牌有效期
+            </summary>
+        </member>
+        <member name="T:MixSchoolManagement.Security.CustomTokenProvider.DataProtectionPurposeStrings">
+            <summary>
+            数据保护用途的链接字符串
+            </summary>
+        </member>
+        <member name="T:MixSchoolManagement.ViewModels.RolesInUserViewModel">
+            <summary>
+            用户拥有的角色列表
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.Departments.DepartmentCreateViewModel.Budget">
+            <summary>
+            预算
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.Departments.DepartmentCreateViewModel.StartDate">
+            <summary>
+            成立时间
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.Departments.DepartmentCreateViewModel.Administrator">
+            <summary>
+            系部主任
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.StudentCreateViewModel.Major">
+            <summary>
+            主修科目
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.StudentCreateViewModel.EnrollmentDate">
+            <summary>
+            入学时间
+            </summary>
+        </member>
+        <member name="T:MixSchoolManagement.ViewModels.StudentEditViewModel">
+            <summary>
+            编辑学生的视图模型
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.StudentEditViewModel.ExistingPhotoPath">
+            <summary>
+            已经存在数据库中的图片路径
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.Teachers.AssignedCourseViewModel.CourseID">
+            <summary>
+            课程ID
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.Teachers.AssignedCourseViewModel.Title">
+            <summary>
+            课程名称
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.Teachers.AssignedCourseViewModel.IsSelected">
+            <summary>
+            是否被选择
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.TeacherListViewModel.SelectedId">
+            <summary>
+            选中的老师Id
+            </summary>
+        </member>
+        <member name="P:MixSchoolManagement.ViewModels.TeacherListViewModel.SelectedCourseId">
+            <summary>
+            选中的课程Id
+            </summary>
+        </member>
+        <member name="T:EmployeeManagement.Security.ManageAdminRolesAndClaimsRequirement">
+            <summary>
+            管理Admin角色与声明的授权需求
+            </summary>
+        </member>
+    </members>
+</doc>
