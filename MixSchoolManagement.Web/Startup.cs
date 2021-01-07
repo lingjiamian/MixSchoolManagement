@@ -49,7 +49,7 @@ namespace MixSchoolManagement.Web
             services.AddControllersWithViews(configure: config =>
             {
                 config.Filters.Add(new AuthorizeFilter());
-            }).AddRazorRuntimeCompilation();
+            }).AddRazorRuntimeCompilation().AddXmlSerializerFormatters();
 
             #region 健康检查 
 
@@ -145,7 +145,7 @@ namespace MixSchoolManagement.Web
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "MixSchoolManagement API",
-                    Description = "为MixSchoolManagement系统，添加一个简单的ASP.NET Core Web API示例",
+                    Description = "MixSchoolManagement系统，添加一个简单的ASP.NET Core Web API示例",
                     Version = "v1",
                     TermsOfService = new Uri("https://github.com/lingjiamian"),
                     Contact = new OpenApiContact
@@ -160,6 +160,7 @@ namespace MixSchoolManagement.Web
                         Url = new Uri("https://rem.mit-license.org/"),
                     }
                 });
+             
                 if (WebHostEnvironment.IsDevelopment())
                 {
                     // 设置Swagger JSON和UI的注释路径。
@@ -203,17 +204,26 @@ namespace MixSchoolManagement.Web
                 app.UseHsts();
             }
 
+            app.UseHsts();
+
+
             app.UseDataInitializer();
 
             app.UseSwagger();
 
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(setupAction:options => {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "MixSchoolManagement MVC V1");
+            });
 
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

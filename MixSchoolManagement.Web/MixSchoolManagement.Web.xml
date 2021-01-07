@@ -66,6 +66,19 @@
             <param name="id"> </param>
             <returns> </returns>
         </member>
+        <member name="M:MixSchoolManagement.Web.Controllers.HomeController.DecryptedStudent(System.String)">
+            <summary>
+            解密学生信息
+            </summary>
+            <param name="id"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:MixSchoolManagement.Web.Controllers.HomeController.ProcessUploadedFile(MixSchoolManagement.ViewModels.StudentCreateViewModel)">
+            <summary>
+            将照片保存到指定的路径中，并返回唯一的文件名
+            </summary>
+            <returns> </returns>
+        </member>
         <member name="T:MixSchoolManagement.Security.CanEditOnlyOtherAdminRolesAndClaimsHandler">
             <summary>
             只有编辑其他Admin角色和声明的处理程序

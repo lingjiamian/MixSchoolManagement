@@ -16,7 +16,6 @@
     <None Include="Views\Home\Privacy.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
-    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
@@ -44,5 +43,7 @@
     <ProjectReference Include="..\MixSchoolManagement.Application\MixSchoolManagement.Application.csproj" />
     <ProjectReference Include="..\MixSchoolManagement.EntityFrameworkCore\MixSchoolManagement.EntityFrameworkCore.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://json.schemastore.org/appsettings" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -19,7 +19,7 @@ namespace MixSchoolManagement.Web
             try
             {
                 logger.Debug("init main");
-            CreateHostBuilder(args).Build().Run();
+                CreateHostBuilder(args).Build().Run();
 
             }
             catch (Exception e)
