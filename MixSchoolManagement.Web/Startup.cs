@@ -42,7 +42,9 @@ namespace MixSchoolManagement.Web
         {
             services.AddDbContextPool<AppDbContext>(optionsAction: options =>
              {
-                 options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("SqlServerConnStr"));
+                 options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("SqlServerConnStr"), options => {
+                     options.MigrationsAssembly("MixSchoolManagement.EntityFrameworkCore");
+                 });
              });
 
 

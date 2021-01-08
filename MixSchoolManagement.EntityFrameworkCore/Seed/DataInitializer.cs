@@ -25,7 +25,7 @@ namespace MixSchoolManagement.Infrastructure.Data
                 var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
                 System.Console.WriteLine("开始执行迁移数据库...");
-                dbcontext.Database.Migrate();
+                dbcontext.Database.EnsureCreated();
                 System.Console.WriteLine("数据库迁移完成...");
 
 

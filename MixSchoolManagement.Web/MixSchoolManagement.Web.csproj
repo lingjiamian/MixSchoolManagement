@@ -9,6 +9,7 @@
     <DocumentationFile>C:\Users\jiamian\source\repos\MixSchoolManagement\MixSchoolManagement.Web\MixSchoolManagement.Web.xml</DocumentationFile>
     <OutputPath></OutputPath>
     <NoWarn>1701;1702;1591</NoWarn>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

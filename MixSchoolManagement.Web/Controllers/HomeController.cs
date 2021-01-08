@@ -328,18 +328,17 @@ namespace MixSchoolManagement.Web.Controllers
             {
                 foreach (var photo in model.Photos)
                 {
-                    //必须将图像上传到wwwroot中的images/avatars文件夹
-                    //而要获取wwwroot文件夹的路径，我们需要注入 ASP.NET Core提供的webHostEnvironment服务
-                    //通过webHostEnvironment服务去获取wwwroot文件夹的路径
+                    //TODO:文件检测
                     string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "avatars");
-                    //为了确保文件名是唯一的，我们在文件名后附加一个新的GUID值和一个下划线
+
+                    //加GUID确保文件名唯一
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                     //因为使用了非托管资源，所以需要手动进行释放
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        //使用IFormFile接口提供的CopyTo()方法将文件复制到wwwroot/images/avatars 文件夹
                         photo.CopyTo(fileStream);
                     }
                 }
