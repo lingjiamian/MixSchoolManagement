@@ -98,14 +98,15 @@ namespace MixSchoolManagement.Web
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("DeleteRolePolicy",
-                   policy => policy.RequireClaim("Delete Role"));
+                   policy => policy.RequireClaim("Delete Role","true"));
 
                 options.AddPolicy("AdminRolePolicy",
                    policy => policy.RequireRole("Admin"));
 
                 //基于策略结合多个角色进行授权
+                //允许Admin, User, SuperAdmin访问
                 options.AddPolicy("SuperAdminPolicy", policy =>
-                  policy.RequireRole("Admin", "User", "SuperManager"));
+                  policy.RequireRole("Admin","User", "SuperManager"));
 
                 options.AddPolicy("EditRolePolicy", policy =>
          policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
@@ -115,16 +116,16 @@ namespace MixSchoolManagement.Web
 
             #region 依赖注入
 
+            //获取Application类库DLL
             var assembliesToScan = new[]   {
                  Assembly.GetExecutingAssembly(),
                 Assembly.GetAssembly(typeof(PagedResultDto<>))
 
-                 //因为PagedResultDto<>在MockSchoolManagement.Application类库中，所以通过PagedResultDto<>获取Application程序集信息
             };
             //Assembly.GetAssembly(typeof(PagedResultDto<>)
             services.AddHttpContextAccessor();
             //自动注入服务到依赖注入容器
-            services.RegisterAssemblyPublicNonGenericClasses(assembliesToScan)//将获取到的程序集信息注册到我们的依赖注入容器中
+            services.RegisterAssemblyPublicNonGenericClasses(assembliesToScan)
              .Where(c => c.Name.EndsWith("Service"))
             .AsPublicImplementedInterfaces(ServiceLifetime.Scoped);
 
@@ -134,14 +135,19 @@ namespace MixSchoolManagement.Web
             //services.AddScoped<IStudentService, StudentService>();
             //services.AddScoped<ICourseService, CourseService>();
 
+            //可编辑角色授权处理器
             services.AddSingleton<IAuthorizationHandler, CanEditOnlyOtherAdminRolesAndClaimsHandler>();
-            services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
+
+            //超级管理员授权处理器
+            //services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
+
+
             services.AddTransient(typeof(IRepository<,>), typeof(RepositoryBase<,>));
             #endregion
 
             #region SwaggerUI
 
-            // 注册Swagger生成器，定义一个或多个Swagger文档
+            //Swagger文档
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -181,7 +187,7 @@ namespace MixSchoolManagement.Web
 
                 config.Cookie.Name = "MixSchoolManagement";
 
-                config.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                config.ExpireTimeSpan = TimeSpan.FromMinutes(180);
 
                 //设置滑动过期
                 config.SlidingExpiration = true;
@@ -197,17 +203,17 @@ namespace MixSchoolManagement.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-                //强制浏览器使用https
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHsts();
-
 
             app.UseDataInitializer();
 

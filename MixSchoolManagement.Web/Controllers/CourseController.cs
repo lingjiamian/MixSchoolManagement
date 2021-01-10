@@ -37,7 +37,6 @@ namespace MixSchoolManagement.Controllers
             _dbcontext = dbcontext;
         }
 
-        // 不填写 [HttpGet]默认为处理GET请求
         public async Task<ActionResult> Index(GetCourseInput input)
         {
             var models = await _courseService.GetPaginatedResult(input);
@@ -137,7 +136,6 @@ namespace MixSchoolManagement.Controllers
         {
             var course = await _courseRepository.GetAll().Include(a => a.Department).FirstOrDefaultAsync(a => a.CourseID == courseId);
 
-            //判断学生信息是否存在
             if (course == null)
             {
                 ViewBag.ErrorMessage = $"课程编号{courseId}的信息不存在，请重试。";
@@ -160,7 +158,6 @@ namespace MixSchoolManagement.Controllers
                 return View("NotFound");
             }
 
-            // await _courseAssignmentsRepository.DeleteAsync(a => a.CourseID == model.CourseID);
 
             await _courseRepository.DeleteAsync(a => a.CourseID == id);
             return RedirectToAction(nameof(Index));

@@ -18,9 +18,7 @@
         </member>
         <member name="M:MixSchoolManagement.Controllers.ErrorController.#ctor(Microsoft.Extensions.Logging.ILogger{MixSchoolManagement.Controllers.ErrorController})">
             <summary>
-            注入ASP.NET  Core ILogger服务。
-            将控制器类型指定为泛型参数。
-            这有助于我们进行确定哪个类或控制器产生了异常，然后记录它
+            注入ASP.NET  Core ILogger服务
             </summary>
             <param name="logger"></param>
         </member>
@@ -39,7 +37,7 @@
         </member>
         <member name="M:MixSchoolManagement.Controllers.TodoController.GetById(System.Int64)">
             <summary>
-            通过Id获取待办事项
+            获取指定待办事项
             </summary>
             <param name="id"> </param>
             <returns> </returns>
@@ -61,7 +59,7 @@
         </member>
         <member name="M:MixSchoolManagement.Controllers.TodoController.Delete(System.Int64)">
             <summary>
-            删除指定id的待办事项
+            删除指定的待办事项
             </summary>
             <param name="id"> </param>
             <returns> </returns>
@@ -75,7 +73,7 @@
         </member>
         <member name="M:MixSchoolManagement.Web.Controllers.HomeController.ProcessUploadedFile(MixSchoolManagement.ViewModels.StudentCreateViewModel)">
             <summary>
-            将照片保存到指定的路径中，并返回唯一的文件名
+            将照片保存到指定的路径中并返回文件名
             </summary>
             <returns> </returns>
         </member>

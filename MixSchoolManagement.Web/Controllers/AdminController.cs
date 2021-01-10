@@ -29,8 +29,8 @@ namespace MixSchoolManagement.Controllers
 
         #region 角色管理
 
-        //其他代码
         [HttpGet]
+        [Authorize(Policy ="")]
         public IActionResult CreateRole()
         {
             return View();
@@ -92,13 +92,8 @@ namespace MixSchoolManagement.Controllers
                 RoleName = role.Name
             };
 
-            //var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
-            //foreach(var user in usersInRole)
-            //{
-            //    model.Users.Add(user.UserName);
-            //}
             var users = _userManager.Users.ToList();
-            //查询所有的用户
+
             foreach (var user in users)
             {
                 //如果用户拥有此角色，请将用户名添加到
@@ -113,7 +108,6 @@ namespace MixSchoolManagement.Controllers
             return View(model);
         }
 
-        //此操作方法用于响应HttpPost的请求并接收EditRoleViewModel模型数据
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
@@ -157,7 +151,6 @@ namespace MixSchoolManagement.Controllers
             }
             else
             {
-                //将代码包装在trycatch中。
                 try
                 {
                     var result = await _roleManager.DeleteAsync(role);
@@ -173,14 +166,13 @@ namespace MixSchoolManagement.Controllers
 
                     return View("ListRoles");
                 }
-                //如果触发的异常是DbUpdateException，我们知道我们无法删除角色，
-                //因为该角色中已存在用户信息
+                //如果触发的异常是DbUpdateException
+                //该角色中已存在用户信息
                 catch (DbUpdateException ex)
                 {
-                    //将异常记录到文件中。我们之前已经学习了使用Nlog配置我们的日志信息
+                    //将异常记录到文件中
                     _logger.LogError($"发生异常 : {ex}");
-                    //我们使用ViewBag.ErrorTitle和 ViewBag.ErrorMessage来传递错误标题和详情信息到我们的Error视图。
-                    //Error视图会将这些数据显示给用户
+                    //使用ViewBag.ErrorTitle和 ViewBag.ErrorMessage来传递错误信息到Error视图。
                     ViewBag.ErrorTitle = $"角色：{role.Name} 正在被使用中...";
                     ViewBag.ErrorMessage = $" 无法删除{role.Name}角色，因为此角色中已经存在用户。如果您想删除此角色，需要先从该角色中删除用户，然后尝试删除该角色本身。";
                     return View("Error");
@@ -196,7 +188,7 @@ namespace MixSchoolManagement.Controllers
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
-            //通过id查询角色实体信息
+
             var role = await _roleManager.FindByIdAsync(roleId);
             if (role == null)
             {
@@ -503,7 +495,7 @@ namespace MixSchoolManagement.Controllers
                 return View("NotFound");
             }
 
-            // //获取所有用户现有的声明并删除它们
+            //获取所有用户现有的声明并删除它们
             var claims = await _userManager.GetClaimsAsync(user);
             var result = await _userManager.RemoveClaimsAsync(user, claims);
 
@@ -512,11 +504,6 @@ namespace MixSchoolManagement.Controllers
                 ModelState.AddModelError("", "无法删除当前用户的声明");
                 return View(model);
             }
-
-            
-            //// 添加界面上选中的所有声明信息
-            //result = await _userManager.AddClaimsAsync(user,
-            //    model.Cliams.Where(c => c.IsSelected).Select(c => new Claim(c.ClaimType, c.ClaimType)));
 
             //添加Cliam列表到数据库中，然后对UI界面上被选中的值进行bool判断。
             result = await _userManager.AddClaimsAsync(user,

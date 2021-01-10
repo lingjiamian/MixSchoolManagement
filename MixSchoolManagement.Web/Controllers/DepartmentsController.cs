@@ -39,18 +39,8 @@ namespace MixSchoolManagement.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            // var department = _dbcontext.Departments .Single(b => b.DepartmentID == id);
-            ////Collection()方法表示，实体与另外一个Collection集合之间的关联关系
-            //_dbcontext.Entry(department)
-            //        .Collection(b => b.Courses)
-            //        .Load();
 
-            ////  Reference()方法表示，可用于两个实体时间的关联
-            //_dbcontext.Entry(department)
-            //        .Reference(b => b.Administrator)
-            //        .Load();
-
-            var department = await _departmentRepository.FirstOrDefaultAsync(a => a.DepartmentID == id);
+            //var department = await _departmentRepository.FirstOrDefaultAsync(a => a.DepartmentID == id);
 
             var model = await _departmentRepository.GetAll().Include(a => a.Administrator).AsNoTracking()
             .FirstOrDefaultAsync(a => a.DepartmentID == id);
@@ -93,26 +83,28 @@ namespace MixSchoolManagement.Controllers
                 model.StartDate = input.StartDate;
                 model.TeacherID = input.TeacherID;
 
-                //从数据库中获取Department实体中的 RowVersion属性，然后将input.RowVersion赋值到OriginalValue中，EF Core会将两个值进行比较。
                 _dbcontext.Entry(model).Property("RowVersion").OriginalValue = input.RowVersion;
 
                 try
-                {   //UpdateAsync方法执行SaveChangesAsync()方法时，如果检测到并发冲突则会触发DbUpdateConcurrencyException异常
+                {   
+                    //如果检测到并发冲突则会触发DbUpdateConcurrencyException异常
                     await _departmentRepository.UpdateAsync(model);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException ex)
-                {   //异常触发后，获取异常的实体
+                {   
+                    //异常触发后，获取异常的实体
                     var exceptionEntry = ex.Entries.Single();
                     var clientValues = (Department)exceptionEntry.Entity;
                     //从数据库中获取该异常实体信息
                     var databaseEntry = exceptionEntry.GetDatabaseValues();
                     if (databaseEntry == null)
-                    {//如果异常实体为null，则表示该行已经被删除
+                    {
+                        //如果异常实体为null，则表示该行已经被删除
                         ModelState.AddModelError(string.Empty, "无法进行数据的修改。该部门信息已经被其他人所删除！");
                     }
                     else
-                    {     //将异常实体中错误信息信息，精确到具体字段程序到视图中。
+                    {     //将异常实体中错误信息写到视图中。
                         var databaseValues = (Department)databaseEntry.ToObject();
                         if (databaseValues.Name != clientValues.Name)
                             ModelState.AddModelError("Name", $"当前值:{databaseValues.Name}");
@@ -128,7 +120,7 @@ namespace MixSchoolManagement.Controllers
                         }
                         ModelState.AddModelError("", "你正在编辑的记录已经被其他用户所修改，编辑操作已经被取消，数据库当前的值已经显示在页面上。请再次点击保存。否则请返回列表。");
                         input.RowVersion = databaseValues.RowVersion;
-                        //记得初始化老师列表
+                        //初始化下拉列表
                         input.TeacherList = TeachersDropDownList();
                         ModelState.Remove("RowVersion");
                     }
@@ -220,10 +212,6 @@ namespace MixSchoolManagement.Controllers
             return dtos;
         }
 
-        //[Route("")]//使 List()成为默认路由入口
-        public string List()
-        {
-            return "我是Departments控制器的List()操作方法 ";
-        }
+
     }
 }

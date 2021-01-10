@@ -1,11 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MixSchoolManagement.Controllers
 {
@@ -14,9 +9,7 @@ namespace MixSchoolManagement.Controllers
         private readonly ILogger<ErrorController> logger;
 
         ///<summary>
-        ///注入ASP.NET  Core ILogger服务。
-        ///将控制器类型指定为泛型参数。
-        ///这有助于我们进行确定哪个类或控制器产生了异常，然后记录它
+        ///注入ASP.NET  Core ILogger服务
         ///</summary>
         ///<param name="logger"></param>
         public ErrorController(ILogger<ErrorController> logger)
@@ -35,7 +28,7 @@ namespace MixSchoolManagement.Controllers
             {
                 case 404:
                     ViewBag.ErrorMessage = "抱歉，你访问的页面不存在";
-                    //LogWarning() 方法将异常记录作为日志中的警告类别记录
+                    //记录警告
                     logger.LogWarning($"发生了一个404错误. 路径 = " +
                 $"{statusCodeResult.OriginalPath} 以及查询字符串 = " +
                 $"{statusCodeResult.OriginalQueryString}");

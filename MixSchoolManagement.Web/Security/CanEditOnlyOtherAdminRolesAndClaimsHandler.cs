@@ -22,18 +22,14 @@ namespace MixSchoolManagement.Security
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
           ManageAdminRolesAndClaimsRequirement requirement)
         {
-            // 获取httpContext上下文
             HttpContext httpContext = _httpContextAccessor.HttpContext;
 
-            string loggedInAdminId =
-                context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-
-            string adminIdBeingEdited = _httpContextAccessor.HttpContext.Request.Query["userId"];
-
-            //判断用户是Admin色，并且拥有claim.Type == "Edit Role"且值为true。
+            //判断当前用户是否有Admin角色，是否有值为true的Edit Role声明
             if (context.User.IsInRole("Admin") &&
                 context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true"))
             {
+                string adminIdBeingEdited = _httpContextAccessor.HttpContext.Request.Query["userId"];
+                string loggedInAdminId = context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
                 //如果当前拥有admin角色的userid为空，说明进入的是角色列表页面。无须判断当前当前登录用户的id
                 if (string.IsNullOrEmpty(adminIdBeingEdited))
                 {
@@ -41,8 +37,11 @@ namespace MixSchoolManagement.Security
                 }
                 else if (adminIdBeingEdited.ToLower() != loggedInAdminId.ToLower())
                 {
-                    //表示成功满足需求
                     context.Succeed(requirement);
+                }
+                else
+                {
+                    context.Fail();
                 }
             }
             return Task.CompletedTask;

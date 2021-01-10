@@ -35,7 +35,8 @@ namespace MixSchoolManagement.Controllers
             var dto = new TeacherListViewModel();
 
             if (input.Id != null)
-            {       //查询老师教授的课程列表
+            {       
+                //查询老师教授的课程列表
                 var teacher = models.Data.FirstOrDefault(a => a.Id == input.Id.Value);
                 if (teacher != null)
                 {
@@ -45,7 +46,8 @@ namespace MixSchoolManagement.Controllers
             }
 
             if (input.CourseId.HasValue)
-            {//查询该课程下有多少学生报名
+            {
+                //查询该课程下有多少学生报名
                 var course = dto.Courses.FirstOrDefault(a => a.CourseID == input.CourseId.Value);
                 if (course != null)
                 {
@@ -191,7 +193,9 @@ namespace MixSchoolManagement.Controllers
         /// <param name="teacher"></param>
         /// <returns></returns>
         private List<AssignedCourseViewModel> AssignedCourseDroupDownList(Teacher teacher)
-        {//获取课程列表
+        {
+            
+            //获取课程列表
             var allCourses = _courseRepository.GetAllList();
             //获取老师当前教授的课程
             var teacherCourses = new HashSet<int>(teacher.CourseAssignments.Select(c => c.CourseID));

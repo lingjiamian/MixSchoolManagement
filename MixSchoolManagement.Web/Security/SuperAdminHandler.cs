@@ -16,7 +16,11 @@ namespace MixSchoolManagement.Security
             {
                 context.Succeed(requirement);
             }
+            else
+            {
+                context.Fail();
 
+            }
             return Task.CompletedTask;
         }
     }

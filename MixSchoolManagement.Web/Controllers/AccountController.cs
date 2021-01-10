@@ -126,10 +126,9 @@ namespace MixSchoolManagement.Controllers
                     ModelState.AddModelError(string.Empty, "您的电子邮箱还未进行验证。");
                     return View(model);
                 }
-                //PasswordSignInAsync()我们将最后一个参数从false修改为了true,用于启用账户锁定。
-                //每次登录失败后，都会将AspNetUsers表中的AccessFailedCount列值增加1。当它等于5时，
+
+                //启用了账户登录失败锁定， 每次登录失败后，都会将AspNetUsers表中的AccessFailedCount列值增加1。当它等于5时，
                 //MaxFailedAccessAttempts将会锁定账户，然后修改LockoutEnd列,添加解锁时间。
-                //即使我们提供正确的用户名和密码， PasswordSignInAsync()方法的返回值依然是Lockedout即被锁定。             
                 var result = await _signInManager.PasswordSignInAsync(
                     model.Email, model.Password, model.RememberMe, true);
                 if (result.Succeeded)
@@ -146,7 +145,6 @@ namespace MixSchoolManagement.Controllers
                         return RedirectToAction("index", "home");
                     }
                 }
-                //如果账户状态为IsLockedOut，那么我们重定向到AccountLocked视图，提示用户账号被锁定。
                 if (result.IsLockedOut)
                 {
                     return View("AccountLocked");
@@ -188,7 +186,6 @@ namespace MixSchoolManagement.Controllers
                 return View("Login", loginViewModel);
             }
 
-            // 从外部登录提供者,即微软账户体系中，获取关于用户的登录信息。
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
@@ -217,7 +214,7 @@ namespace MixSchoolManagement.Controllers
                 }
             }
 
-            //如果用户之前已经登录过了，会在AspNetUserLogins表有对应的记录，这个时候无需创建新的记录，直接使用当前记录登录系统即可。
+            //如果用户之前已经登录过了，会在AspNetUserLogins表有对应的记录，此时就能直接登录成功
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                 info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
@@ -226,7 +223,7 @@ namespace MixSchoolManagement.Controllers
                 return LocalRedirect(returnUrl);
             }
 
-            //如果AspNetUserLogins表中没有记录，则代表用户没有一个本地帐户，这个时候我们就需要创建一个记录了。       
+            //如果AspNetUserLogins表中没有记录，则代表用户没有一个本地帐户，这个时候就需要创建一个记录       
             else
             {
 
@@ -264,7 +261,7 @@ namespace MixSchoolManagement.Controllers
                     return LocalRedirect(returnUrl);
                 }
 
-                // 如果我们获取不到电子邮件地址，我们需要将请求重定向到错误视图中。
+                // 如果获取不到电子邮件地址，我们需要将请求重定向到错误视图中。
                 ViewBag.ErrorTitle = $"我们无法从提供商:{info.LoginProvider}中解析到您的邮件地址 ";
                 ViewBag.ErrorMessage = "请通过联系 ltm@ddxc.org 寻求技术支持。";
 
@@ -432,12 +429,12 @@ namespace MixSchoolManagement.Controllers
                     var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
                     if (result.Succeeded)
                     {
-                        //密码成功重置后，如果当前账户被锁定，则设置该账户锁定结束日期为当前UTC日期时间。
-                        //这样用户就可以用新密码登录系统。
+                        //密码成功重置后，如果当前账户被锁定，则设置该账户锁定结束日期为当前UTC日期时间
+                        //这样用户就可以用新密码登录系统
                         if (await _userManager.IsLockedOutAsync(user))
                         {
                             await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
-                            //DateTimeOffset指是UTC时间即格林威治时间。
+                            //DateTimeOffset指是UTC时间即格林威治时间
                         }
 
                         return View("ResetPasswordConfirmation");

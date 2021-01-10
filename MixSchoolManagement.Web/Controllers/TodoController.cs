@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MixSchoolManagement.Infrastructure.Repositories;
 using MixSchoolManagement.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MixSchoolManagement.Controllers
@@ -15,7 +13,7 @@ namespace MixSchoolManagement.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        //注入仓储服务，因TodoItem的主键id为long类型，仓储服务参数也需要对应一致
+        //注入仓储服务
         private readonly IRepository<TodoItem, long> _todoItemRepository;
 
         public TodoController(IRepository<TodoItem, long> todoRepository)
@@ -29,15 +27,15 @@ namespace MixSchoolManagement.Controllers
         /// <returns> </returns>
         [HttpGet]
         public async Task<ActionResult<List<TodoItem>>> GetAll()
-        {       //获取所有的代码事项列表
+        {      
             var models = await _todoItemRepository.GetAllListAsync();
             return models;
         }
 
-        #region 根据Id获取待办事项
+        #region 获取指定待办事项
 
         /// <summary>
-        /// 通过Id获取待办事项
+        /// 获取指定待办事项
         /// </summary>
         /// <param name="id"> </param>
         /// <returns> </returns>
@@ -47,16 +45,16 @@ namespace MixSchoolManagement.Controllers
             var todoItem = await _todoItemRepository.FirstOrDefaultAsync(a => a.Id == id);
 
             if (todoItem == null)
-            {   //返回为404 状态码
+            {   
                 return NotFound();
             }
 
             return todoItem;
         }
 
-        #endregion 根据Id获取待办事项
+        #endregion 获取指定待办事项
 
-        #region 更新待办事项
+        #region 更新指定待办事项
 
         /// <summary>
         /// 更新待办事项
@@ -74,11 +72,10 @@ namespace MixSchoolManagement.Controllers
 
             await _todoItemRepository.UpdateAsync(todoItem);
 
-            //返回状态码204
             return NoContent();
         }
 
-        #endregion 更新待办事项
+        #endregion 更新指定待办事项
 
         #region 添加待办实现
 
@@ -100,10 +97,10 @@ namespace MixSchoolManagement.Controllers
 
         #endregion 添加待办实现
 
-        #region 删除指定id的待办事项
+        #region 删除指定的待办事项
 
         /// <summary>
-        /// 删除指定id的待办事项
+        /// 删除指定的待办事项
         /// </summary>
         /// <param name="id"> </param>
         /// <returns> </returns>
@@ -119,6 +116,6 @@ namespace MixSchoolManagement.Controllers
             return todoItem;
         }
 
-        #endregion 删除指定id的待办事项
+        #endregion 删除指定的待办事项
     }
 }
