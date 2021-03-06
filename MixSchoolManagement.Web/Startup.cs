@@ -42,9 +42,8 @@ namespace MixSchoolManagement.Web
         {
             services.AddDbContextPool<AppDbContext>(optionsAction: options =>
              {
-                 options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("SqlServerConnStr"), options => {
-                     options.MigrationsAssembly("MixSchoolManagement.EntityFrameworkCore");
-                 });
+                 options.UseLazyLoadingProxies().UseSqlite(Configuration.GetConnectionString("SqliteConnStr"));
+            
              });
 
 
@@ -55,8 +54,7 @@ namespace MixSchoolManagement.Web
 
             #region ½¡¿µ¼ì²é 
 
-            services.AddHealthChecks()
-               .AddSqlServer(Configuration.GetConnectionString("SqlServerConnStr"));
+            services.AddHealthChecks().AddSqlite(Configuration.GetConnectionString("SqliteConnStr"));
 
             #endregion
 

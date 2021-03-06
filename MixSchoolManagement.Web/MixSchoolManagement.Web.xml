@@ -68,7 +68,7 @@
             <summary>
             解密学生信息
             </summary>
-            <param name="id"> </param>
+            <param name="Id"> </param>
             <returns> </returns>
         </member>
         <member name="M:MixSchoolManagement.Web.Controllers.HomeController.ProcessUploadedFile(MixSchoolManagement.ViewModels.StudentCreateViewModel)">
