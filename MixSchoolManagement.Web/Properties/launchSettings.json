@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:4540",
-      "sslPort": 44360
+      "sslPort": 0
     }
   },
   "profiles": {
@@ -31,9 +31,8 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true,
-      "useSSL": false,
-      "httpPort": 24051
-
+      "httpPort": 24051,
+      "useSSL": false
     }
   }
 }
