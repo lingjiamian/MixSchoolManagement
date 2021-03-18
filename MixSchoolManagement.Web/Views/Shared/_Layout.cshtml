@@ -2,22 +2,22 @@
 <head>
     <meta name="viewport" content="width=device-width" />
 
-	<environment include="Development">
-		<link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
-	</environment>
+    <environment include="Development">
+        <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    </environment>
 
-	<environment exclude="Development">
-		<link rel="stylesheet"
-			  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-			  crossorigin="anonymous"
-			  asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
-			  asp-fallback-test-class="sr-only"
-			  asp-fallback-test-property="position"
-			  asp-fallback-test-value="absolute"
-			  asp-suppress-fallback-integrity="true" />
-		<link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-	</environment>
+    <environment exclude="Development">
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              crossorigin="anonymous"
+              asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute"
+              asp-suppress-fallback-integrity="true" />
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    </environment>
 
     @*<link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />*@
     <title>@ViewBag.Title</title>
@@ -60,56 +60,56 @@
                     @if (_signInManager.IsSignedIn(User))
                     {
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"
-                               href="#"
-                               id="navbarDropdownMenuLink"
-                               data-toggle="dropdown"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                管理
-                            </a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            管理
+                        </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-                                @if (User.IsInRole("Admin"))
+                            @if (User.IsInRole("Admin"))
                                 {
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ListUsers">用户列表</a>
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ListRoles">角色列表</a>
+                            <a class="dropdown-item" asp-controller="Admin" asp-action="ListUsers">用户列表</a>
+                            <a class="dropdown-item" asp-controller="Admin" asp-action="ListRoles">角色列表</a>
                                 }
-                                <a class="dropdown-item" asp-controller="Account"
-                                   asp-action="ChangePassword">
-                                    密码管理
-                                </a>
-                            </div>
-                        </li>
+                            <a class="dropdown-item" asp-controller="Account"
+                               asp-action="ChangePassword">
+                                密码管理
+                            </a>
+                        </div>
+                    </li>
                     }
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     @*如果用户已登录，则显示注销链接*@
                     @if (_signInManager.IsSignedIn(User))
                     {
-                        <li class="nav-item">
-                            <form method="post" asp-controller="account" asp-action="logout">
-                                <button type="submit" style="width:auto"
-                                        class="nav-link btn btn-link py-0">
-                                    注销 @User.Identity.Name
-                                </button>
-                            </form>
-                        </li>
+                    <li class="nav-item">
+                        <form method="post" asp-controller="account" asp-action="logout">
+                            <button type="submit" style="width:auto"
+                                    class="nav-link btn btn-link py-0">
+                                注销 @User.Identity.Name
+                            </button>
+                        </form>
+                    </li>
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="account" asp-action="register">
-                                注册
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="account" asp-action="login">
-                                登录
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="account" asp-action="register">
+                            注册
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="account" asp-action="login">
+                            登录
+                        </a>
+                    </li>
                     }
                 </ul>
             </div>
@@ -124,13 +124,13 @@
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery/jquery.min.js"></script>
         <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
         <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     </environment>
 
     @if (IsSectionDefined("Scripts"))
-    {@RenderSection("Scripts", required:false)}
+    {@RenderSection("Scripts", required: false)}
 </body>
 </html>
